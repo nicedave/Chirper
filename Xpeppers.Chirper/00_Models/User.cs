@@ -12,7 +12,37 @@ namespace Xpeppers.Chirper
 
         public string Name { get; private set; }
 
-        public ICollection<ITweet> Tweets { get; set; }
-        public ICollection<IUser> Followed { get; set; }
+        public ICollection<ITweet> Tweets { get; private set; }
+        public ICollection<IUser> Followed { get; private set; }
+
+        public void AddFollowed(IUser userToFollow)
+        {
+            if (Followed == null)
+                Followed = new List<IUser>();
+
+            Followed.Add(userToFollow);
+        }
+        public void RemoveFollowed(IUser userToUnfollow)
+        {
+            if (Followed == null)
+                return;
+         
+            Followed.Remove(userToUnfollow);
+        }
+
+        public ITweet AddTweet(string text)
+        {
+            if (Tweets == null)
+            {
+                Tweets = new List<ITweet>();
+            }
+
+            Tweet newTweet = new Tweet(this, text);
+            Tweets.Add(newTweet);
+
+            return newTweet;
+        }
+
+
     }
 }

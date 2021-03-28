@@ -10,6 +10,6 @@ namespace Xpeppers.Chirper.Abstraction
     {
         IUser Find(string UserName);
         IUser Add(string UserName);
-        void Save();
+        void Save(IUser user);
     }
 }

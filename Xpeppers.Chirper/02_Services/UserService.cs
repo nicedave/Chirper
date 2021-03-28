@@ -37,12 +37,8 @@ namespace Xpeppers.Chirper
                 user = _userRepository.Add(UserName);
             }
 
-            if (user.Tweets == null)
-            {
-                user.Tweets = new List<ITweet>();
-            }
-
-            user.Tweets.Add(new Tweet(user, text));
+            user.AddTweet(text);
+            _userRepository.Save(user);
         }
 
         public void Follow(string UserName, string UserNameToFollow)
@@ -59,10 +55,9 @@ namespace Xpeppers.Chirper
                 return;
             }
 
-            if (user.Followed == null)
-                user.Followed = new List<IUser>();
+            user.AddFollowed(userToFollow);
 
-            user.Followed.Add(userToFollow);
+            _userRepository.Save(user);
         }
 
         public void Unfollow(string UserName, string UserNameToUnFollow)
@@ -73,15 +68,15 @@ namespace Xpeppers.Chirper
                 return;
             }
 
-            if (user.Followed == null)
-                return;
-
             IUser userToUnfollow = _userRepository.Find(UserNameToUnFollow);
-
             if (userToUnfollow == null)
+            {
                 return;
-            
-            user.Followed.Remove(userToUnfollow);
+            }
+
+            user.RemoveFollowed(userToUnfollow);
+         
+            _userRepository.Save(user);
         }
 
         public List<ITweet> GetTweets(string UserName)
@@ -92,7 +87,7 @@ namespace Xpeppers.Chirper
                 return null;
             }
 
-            return user.Tweets?.OrderByDescending(t => t.DateAdded).ToList();
+            return user.Tweets.OrderByDescending(t => t.DateAdded).ToList();
         }
 
         public List<ITweet> GetWall(string UserName)

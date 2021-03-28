@@ -33,14 +33,13 @@ namespace Xpeppers.Chirper
             IUser newUser = new User(UserName);
             _context.Users.Add(newUser);
 
-            Save();
-
             return newUser;
         }
 
-        public void Save()
+        public void Save(IUser user)
         {
-            //Saving context
+            IUser oldUser = _context.Users.SingleOrDefault(u => u.Name == user.Name);
+            oldUser = user;
         }
     }
 }

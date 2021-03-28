@@ -4,8 +4,12 @@ namespace Xpeppers.Chirper.Abstraction
 {
     public interface IUser
     {
-        ICollection<IUser> Followed { get; set; }
         string Name { get; }
-        ICollection<ITweet> Tweets { get; set; }
+        ICollection<IUser> Followed { get; }
+        ICollection<ITweet> Tweets { get; }
+
+        void AddFollowed(IUser userToFollow);
+        void RemoveFollowed(IUser userToUnfollow);
+        ITweet AddTweet(string text);
     }
 }

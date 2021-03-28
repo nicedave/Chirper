@@ -15,12 +15,10 @@ namespace Xpeppers.Chirper
             var bob = new User("Bob");
             var charlie = new User("Charlie");
 
-            alice.Tweets = new List<ITweet>();
-            alice.Tweets.Add(new Tweet(alice, "I love the weather today"));
+            alice.AddTweet("I love the weather today");
 
-            bob.Tweets = new List<ITweet>();
-            bob.Tweets.Add(new Tweet(bob, "Damn! We lost!"));
-            bob.Tweets.Add(new Tweet(bob, "Good game though."));
+            bob.AddTweet("Damn! We lost!");
+            bob.AddTweet("Good game though.");
 
             //pippo.Followed.Add(anna);
             //pippo.Tweets.Add(new BaseTweet(pippo, "ciao sono pippo"));
